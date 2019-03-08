@@ -9,18 +9,18 @@ class User(AbstractUser):
     reputation = models.IntegerField(default=0)
 
     def __str__(self):
-        return str(self.user.username)
+        return str(self.username)
 
     def __unicode__(self):
-        return str(self.user.username)
+        return str(self.username)
 
-class Skills(models.Model):
+class Skill(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True, null=True)
     name = models.CharField(max_length=1200, blank=False, null=False)
 
     def __str__(self):
-        return str(self.user.username)
+        return str(self.username)
 
     def __unicode__(self):
-        return str(self.user.username)
+        return str(self.username)
 
