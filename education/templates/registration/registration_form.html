@@ -1,6 +1,7 @@
 {% extends "education/base.html" %}
 {% load i18n %}
-
+{% load staticfiles %}
+{% load widget_tweaks %}
 {% block content %}
 <form method="post" action=".">
   {% csrf_token %}
@@ -8,4 +9,95 @@
 
   <input type="submit" value="{% trans 'Submit' %}" />
 </form>
+
+<div class="container">
+  <div class="card" style="max-height: 60%; max-width: 50%; margin:10% auto;">
+    <div class="card-header card-header-primary">
+      <h4 class="card-title">Create Profile</h4>
+      <p class="card-category">All details are necesarry</p>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="row">
+          <div class="col-md-6">
+              <form method="post">
+                  {% csrf_token %}
+                  {{form.errors}}
+              <label class="bmd-label-floating">Username</label>
+              {% render_field form.username class="form-control" %}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Email address (Use disposable ones)</label>
+              {% render_field form.email class="form-control" %}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Fist Name</label>
+              {% render_field form.first_name class="form-control" %}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Last Name</label>
+              {% render_field form.last_name class="form-control" %}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Password</label>
+              {% render_field form.password class="form-control" %}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating">Confirm Password</label>
+              {% render_field form.password class="form-control" %}
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-4">
+            <label class="bmd-label-floating">Choose your role</label>
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="form-check-inline">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">
+                As Mentor
+              </label>
+              {% render_field form.available_mentor class="form-control" %}
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-check-inline">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">
+                As Mentee
+              </label>
+              {% render_field form.available_mentee class="form-control" %}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>About Me</label>
+              {% render_field form.bio class="form-control" %}
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary pull-right">Create Account</button>
+        <div class="clearfix"></div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -1,8 +1,9 @@
 {% extends "education/base.html" %}
 {% load i18n %}
-
+{% load staticfiles %}
+{% load widget_tweaks %}
 {% block content %}
-<form method="post" action=".">
+<!-- <form method="post" action=".">
   {% csrf_token %} 
   {{ form.as_p }}
 
@@ -11,5 +12,44 @@
 </form>
 
 <p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
-<p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+<p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p> -->
+<div class="container">
+  <div class="card" style="max-height: 60%; max-width: 40%; margin:10% auto;">
+    <div class="card-header card-header-primary">
+      <h4 class="card-title">Create Profile</h4>
+      <p class="card-category">{{request.user}}</p>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        {{form.errors}}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="bmd-label-floating">Username</label>
+              {% render_field form.username class="form-control" %}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="bmd-label-floating">Password</label>
+              {% render_field form.password class="form-control" %}
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary pull-right">Login</button>
+        <div class="clearfix"></div>
+        <br>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <label>Not a User?</label>
+            <label><a class="signup" href="./createaccount.html">Sign Up</a> </label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

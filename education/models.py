@@ -7,6 +7,7 @@ class User(AbstractUser):
     available_mentee = models.BooleanField(default=True)
     assigned_mentor = models.ForeignKey("User",on_delete=models.CASCADE,blank=True, null=True)
     reputation = models.IntegerField(default=0)
+    bio = models.CharField(max_length=200,default="Tell about yourself")
 
     def __str__(self):
         return str(self.username)
