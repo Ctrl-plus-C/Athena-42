@@ -28,6 +28,16 @@ class QuestionsAPI(APIView):
             return Response(question_serializer.data, status=status.HTTP_201_CREATED)
         return Response(question_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def put(self, request, format=None):
+        try:
+            question = Question.objects.get(question_title=request.data.get('question_query'))
+        except:
+            return Response({'success': False, 'message': 'No such question found'})
+        question_serializer = QuestionSerializer(question, data=request.data, partial=True)
+        if question_serializer.is_valid():
+            question_serializer.save()
+            return Response(question_serializer.data, status=status.HTTP_200_OK)
+        return Response(question_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TagsAPI(APIView):
     def get(self, request, question, format=None):
