@@ -2,9 +2,8 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
+    url(r'^$', views.dashboard, name='dashboard'),
     url(r'^api/question/$', views.QuestionsAPI.as_view(), name='QuestionsAPI'),    
-    url(r'^api/question/(?P<title>[-\w]+)/$', views.QuestionsAPI.as_view(), name='QuestionsAPI'),
     url(r'^api/answers/$', views.AnswerAPI.as_view(), name='AnswerAPI'),
     url(r'^api/answers/(?P<question_id>[-\w]+)/$', views.AnswerAPI.as_view(), name='AnswerAPI'),
     url(r'^api/skills/$', views.SkillAPI.as_view(), name='SkillAPI'),
