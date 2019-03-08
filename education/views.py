@@ -21,7 +21,7 @@ class QuestionsAPI(APIView):
         except:
             return Response({'success': False, 'message': 'No Question with the given title found.'}, status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request, title, format=None):
+    def post(self, request, format=None):
         question_serializer = QuestionSerializer(data=request_data)
         if question_serializer.is_valid():
             question_serializer.save()
@@ -40,7 +40,7 @@ class TagsAPI(APIView):
             return Response({'success': False, 'message': 'No tag found.'}, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, title, format=None):
-        tag_serializer = TagSerializer(data=request_data, many=True)
+        tag_serializer = TagSerializer(data=request.data)
         if tag_serializer.is_valid():
             tag_serializer.save()
             return Response(tag_serializer.data, status=status.HTTP_201_CREATED)
@@ -56,6 +56,13 @@ class SkillAPI(APIView):
             return Response(skill_data, status=status.HTTP_200_OK)
         except:
             return Response({'success': False, 'message': 'No such skill found.'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    def post(self, request, format=None):
+        skill_serializer = SkillSerializer(data=request.data)
+        if skill_serializer.is_valid():
+            skill_serializer.save()
+            return Response(skill_serializer.data, status=status.HTTP_201_CREATED)
+        return Respone(skill_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class AnswerAPI(APIView):
@@ -67,3 +74,10 @@ class AnswerAPI(APIView):
             return Response(answer_data, status=status.HTTP_200_OK)
         except:
             return Response({'success': False, 'message': 'No Answer found.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request, format=None):
+        answer_serializer = AnswerSerializer(data=request.data)
+        if answer_serializer.is_valid():
+            answer_serializer.save()
+            return Response(answer_serializer.data, status=status.HTTP_200_OK)
+        return Response(answer_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
