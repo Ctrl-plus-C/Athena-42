@@ -22,8 +22,6 @@ class QuestionsAPI(APIView):
             return Response({'success': False, 'message': 'No Question with the given title found.'}, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, title, format=None):
-        request_data = request.data.copy()
-        request_data['user'] = request.user.id
         question_serializer = QuestionSerializer(data=request_data)
         if question_serializer.is_valid():
             question_serializer.save()
@@ -40,6 +38,13 @@ class TagsAPI(APIView):
             return Response(tag_data, status=status.HTTP_200_OK)
         except:
             return Response({'success': False, 'message': 'No tag found.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request, title, format=None):
+        tag_serializer = TagSerializer(data=request_data, many=True)
+        if tag_serializer.is_valid():
+            tag_serializer.save()
+            return Response(tag_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(tag_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class SkillAPI(APIView):
