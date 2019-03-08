@@ -24,3 +24,20 @@ class Skill(models.Model):
     def __unicode__(self):
         return str(self.username)
 
+class Question(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    question_title = models.CharField(max_length=200, blank=True, null=True)
+    question_description = models.CharField(max_length=2000, blank=True, null=True)
+    question_upvotes = models.IntegerField(default=0)
+    question_downvotes = models.IntegerField(default=0)
+
+class Tag(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE,blank=True,null=True)
+    tag = models.CharField(max_length=200, blank=True, null=True)
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    answer_text = models.CharField(max_length=5000, blank=True, null=True)
+    answer_upvotes = models.IntegerField(default=0)
+    answer_downvotes = models.IntegerField(default=0)
