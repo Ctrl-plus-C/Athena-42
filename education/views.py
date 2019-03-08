@@ -56,6 +56,17 @@ class TagsAPI(APIView):
             return Response(tag_serializer.data, status=status.HTTP_201_CREATED)
         return Response(tag_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def put(self, request, format=None):
+        try:
+            tag = tag.objects.get(tag=request.data.get('question_tag'))
+        except:
+            return Response({'success': False, 'message': 'No such tag found'})
+        tag_serializer = TagSerializer(question, data=request.data, partial=True)
+        if tag_serializer.is_valid():
+            tag_serializer.save()
+            return Response(tag_serializer.data, status=status.HTTP_200_OK)
+        return Response(tag_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class SkillAPI(APIView):
     def get(self, request, user, format=None):
