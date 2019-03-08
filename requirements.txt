@@ -1,0 +1,6 @@
+confusable-homoglyphs==3.2.0
+Django==1.11
+django-registration==2.4.1
+django-rest-framework==0.1.0
+djangorestframework==3.9.2
+pytz==2018.9
