@@ -39,7 +39,7 @@ class TagsAPI(APIView):
         except:
             return Response({'success': False, 'message': 'No tag found.'}, status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request, title, format=None):
+    def post(self, request, format=None):
         tag_serializer = TagSerializer(data=request.data)
         if tag_serializer.is_valid():
             tag_serializer.save()
