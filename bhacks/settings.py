@@ -70,6 +70,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bhacks.wsgi.application'
 
+AUTH_USER_MODEL = 'education.User'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
