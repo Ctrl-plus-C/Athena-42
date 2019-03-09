@@ -13,19 +13,19 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li class="nav-item  ">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{% url 'dashboard' %}">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item active ">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{% url 'userprofile' %}">
                         <i class="material-icons">person</i>
                         <p>User Profile</p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="postquestion">
+                    <a class="nav-link" href="{% url 'postquestion' %}">
                         <i class="material-icons">content_paste</i>
                         <p>Post a Question</p>
                     </a>
@@ -34,12 +34,6 @@
                     <a class="nav-link" href="#">
                         <i class="material-icons">library_books</i>
                         <p>Typography</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="#">
-                        <i class="material-icons">bubble_chart</i>
-                        <p>Icons</p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -52,6 +46,12 @@
                     <a class="nav-link" href="./notifications.html">
                         <i class="material-icons">notifications</i>
                         <p>Notifications</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'auth_logout' %}">
+                        <i class="material-icons">bubble_chart</i>
+                        <p>Logout</p>
                     </a>
                 </li>
             </ul>
@@ -136,7 +136,8 @@
                                         </div>
                                         <div class="col-md-4 text-center">
                                             <div class="form-check-inline">
-                                                {% render_field form.available_mentor class="form-check-input" id="defaultCheck1" %}
+                                                {% render_field form.available_mentor class="form-check-input"
+                                                id="defaultCheck1" %}
 
                                                 As Mentor
                                                 </label>
@@ -144,7 +145,8 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-check-inline">
-                                                {% render_field form.available_mentee class="form-check-input" id="defaultCheck1" %}
+                                                {% render_field form.available_mentee class="form-check-input"
+                                                id="defaultCheck1" %}
                                                 As Mentee
                                                 </label>
                                             </div>

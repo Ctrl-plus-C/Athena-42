@@ -6,6 +6,7 @@ from .serializers import QuestionSerializer, AnswerSerializer, SkillSerializer, 
 from rest_framework.response import Response
 from rest_framework import status
 from .forms import CustomUserForm
+import json
 
 def dashboard(request):
     if request.user.is_authenticated():
@@ -76,7 +77,9 @@ class TagsAPI(APIView):
             return Response({'success': False, 'message': 'No tag found.'}, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, format=None):
-        tag_serializer = TagSerializer(data=request.data, many=True)
+        request_data = request.data.getlist('data')[0]
+        request_data = eval(json.loads(json.dumps(request_data)))
+        tag_serializer = TagSerializer(data=request_data, many=True)
         if tag_serializer.is_valid():
             tag_serializer.save()
             return Response(tag_serializer.data, status=status.HTTP_201_CREATED)

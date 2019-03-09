@@ -4,7 +4,7 @@ from .models import User, Question, Skill, Tag, Answer
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('user', 'question_title', 'question_description', 'question_upvotes', 'question_downvotes')
+        fields = ('pk','user', 'question_title', 'question_description', 'question_upvotes', 'question_downvotes')
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
