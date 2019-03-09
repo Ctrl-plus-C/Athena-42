@@ -111,9 +111,15 @@
           </div>
           <div class="modal-body">
             <p id="modalcontent"></p>
+            <div class="form-group">
+                <label>Write Your Answer Here</label>
+                <div class="form-group bmd-form-group">
+                  <textarea id='answer_area' class="form-control" rows="5"></textarea>
+                </div>
+              </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" id="answergiven" class="btn btn-primary">Save changes</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -231,15 +237,40 @@
   </script>
   <script>
   $(document).ready(function(e){
+    var ques_id; 
     $('.submitanswer').on('click', function(e){
-      let ques_id = e.target.id;
+      ques_id = e.target.id;
       let ques_data = something[ques_id-1];
       let ques_description = ques_data.question_description;
       let ques_title = ques_data.question_title;
       console.log(ques_description, ques_title);
       $('.modal-title').append(ques_title);
       $('#modalcontent').append(ques_description);
-
+    });
+    $('#answergiven').click(function(e){
+      let answer_text = $('#answer_area').val()
+      data = {}
+      data['user'] = {{request.user.pk}};
+      data['question'] = ques_id;
+      data['answer_text'] = answer_text;
+      console.log(data);
+      $.ajaxSetup({
+        headers: {
+          "X-CSRFToken": '{{csrf_token}}'
+        }
+      });
+      $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:8000/api/answers/",
+        async: false,
+        data: data,
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          console.log(XMLHttpRequest, textStatus, errorThrown);
+        }
+      });
     });
   });
   </script>
