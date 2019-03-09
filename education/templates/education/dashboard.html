@@ -122,6 +122,8 @@
 <script>
   $(document).ready(function(){
     var htmlStr = '';
+    var questions_data;
+    var tag_data;
     $.ajax({
       type: "GET",
       url: "http://127.0.0.1:8000/api/question/",
@@ -135,6 +137,7 @@
             url: "http://127.0.0.1:8000/api/tags/"+ques_data.pk,
             async: false,
             success: function(tag_data){
+              tag_data = tag_data;
               tag_data.map(function(eachtag){
                 tagStr += `<span class="badge badge-secondary">`+ eachtag.tag +`</span> &nbsp`
               });
