@@ -222,7 +222,6 @@
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           console.log(XMLHttpRequest, textStatus, errorThrown);
         }
-
       });
       var finallist = []
       alltags.map(function (data) {
@@ -241,10 +240,12 @@
       $.ajax({
         type: "POST",
         url: "http://127.0.0.1:8000/api/tags/",
-        data: {'data': JSON.stringify(finallist)},
+        data: {
+          'data': JSON.stringify(finallist)
+        },
         success: function (data) {
           console.log(data);
-          $(".success-card").css("visibility","visible");
+          $(".success-card").css("visibility", "visible");
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           console.log(XMLHttpRequest, textStatus, errorThrown);

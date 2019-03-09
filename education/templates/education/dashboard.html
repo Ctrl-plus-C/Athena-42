@@ -99,7 +99,6 @@
     <!-- End Navbar -->
     <div class="content">
       <div class="container-fluid">
-
       </div>
     </div>
     <footer class="footer">
@@ -139,4 +138,20 @@
     </footer>
   </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+  $.ajax({
+    type: "GET",
+    url: "http://127.0.0.1:8000/api/question/",
+    async: false,
+    success: function (data) {
+      console.log(data);
+      // show data
+    },
+    error: function (XMLHttpRequest, textStatus, errorThrown) {
+      console.log(XMLHttpRequest, textStatus, errorThrown);
+    }
+  });
+</script>
 {% endblock %}
