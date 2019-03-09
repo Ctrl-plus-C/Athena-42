@@ -129,7 +129,7 @@ class SkillAPI(APIView):
         if skill_serializer.is_valid():
             skill_serializer.save()
             return Response(skill_serializer.data, status=status.HTTP_201_CREATED)
-        return Respone(skill_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(skill_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, format=None):
         try:

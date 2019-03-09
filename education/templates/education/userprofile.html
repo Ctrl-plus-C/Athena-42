@@ -144,7 +144,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-check-inline">
-                                                {% render_field form.available_mentee class="form-check-input" id="defaultCheck1" %}
+                                                {% render_field form.available_mentee class="form-check-input" id="defaultCheck2" %}
                                                 As Mentee
                                                 </label>
                                             </div>
@@ -175,20 +175,21 @@
                             <div class="card-body">
                                 <h6 class="card-category text-gray">{{ bio }}</h6>
                                 <h4 class="card-title">{{ name }}</h4>
-                                {% for i in skills %}
-                                    <span class="badge badge-secondary">{{ i.name }}</span>
-                                {% endfor %}
+                                <div id="userskills"></div>
                             </div>
                         </div>
                         <div class="card card-profile">
                             <div class="card-body">
                                 <h6 class="card-category text-gray">Enter Your Skill</h6>
-                                <div class="form-group">
-                                    <input type="text" placeholder="Python, JS ..." maxlength="30" class="form-control">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <input type="text" placeholder="Python, JS ..." id="user_skill" maxlength="30" class="form-control">
+                                    </div>
+                                <div class="col-md-4">
+                                        <button id="skilladd" class="btn btn-primary pull-right">Add</button>
                                 </div>
-                                <span><i class="material-icons">
-                                        done
-                                        </i></span>
+                                </div>
+                                <div id="success_msg" style="display: none;">Skill added successfully</div>
                             </div>
                         </div>
                     </div>
@@ -232,4 +233,55 @@
         </footer>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+$(document).ready(function(){
+    $.ajax({
+        type: "GET",
+        url: "http://127.0.0.1:8000/api/skills/"+ {{request.user.pk}},
+        async: false,
+        success: function(data){
+            skillStr = '';
+            data.map(function(skilldata){
+                skillStr += `<span class="badge badge-secondary">`+ skilldata.name +`</span> &nbsp`;
+            });
+            $('#userskills').append(skillStr);
+            console.log(data);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+              console.log(XMLHttpRequest, textStatus, errorThrown);
+        },
+    });
+
+    $('#skilladd').click(function(e){
+        e.preventDefault();
+        let skillVal = $('#user_skill').val();
+        data = {};
+        data['user'] = {{request.user.pk}};
+        data['name'] = skillVal;
+        $.ajaxSetup({
+        headers: {
+                "X-CSRFToken": '{{csrf_token}}'
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:8000/api/skills/",
+            data: data,
+            success: function (data) {
+              $('#userskills').append(`<span class="badge badge-secondary">` + data.name + `</span> &nbsp`)                
+              $('#success_msg').show();
+              $('#user_skill').val('');
+              setTimeout(function(){
+                $('#success_msg').hide();
+              },4000);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+              console.log(XMLHttpRequest, textStatus, errorThrown);
+            }
+        });
+        });
+    });
+</script>
 {% endblock %}
