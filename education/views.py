@@ -76,7 +76,7 @@ class TagsAPI(APIView):
             return Response({'success': False, 'message': 'No tag found.'}, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, format=None):
-        tag_serializer = TagSerializer(data=request.data)
+        tag_serializer = TagSerializer(data=request.data, many=True)
         if tag_serializer.is_valid():
             tag_serializer.save()
             return Response(tag_serializer.data, status=status.HTTP_201_CREATED)
@@ -84,7 +84,6 @@ class TagsAPI(APIView):
 
     def put(self, request, format=None):
         try:
-            import pdb; pdb.set_trace()
             tag = Tag.objects.get(question=request.data.get('question_id'), pk=request.data.get('tag_pk'))
         except:
             return Response({'success': False, 'message': 'No such tag found'}, status=status.HTTP_400_BAD_REQUEST)
