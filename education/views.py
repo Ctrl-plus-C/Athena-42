@@ -16,6 +16,11 @@ def dashboard(request):
         return render(request, 'education/dashboard.html', {'name':name})
     return redirect('/accounts/login')
 
+def notif(request):
+    if request.user.is_authenticated():
+        return render(request, 'education/notif.html')
+    return redirect('/accounts/login')
+
 def userprofile(request):
     if request.user.is_authenticated():
         bio = request.user.bio

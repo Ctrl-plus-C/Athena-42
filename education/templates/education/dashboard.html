@@ -40,7 +40,7 @@
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./notifications.html">
+          <a class="nav-link" href="{% url 'notif' %}">
             <i class="material-icons">notifications</i>
             <p>Notifications</p>
           </a>
@@ -185,7 +185,7 @@
             ques_data.question_title +
             `</h4>
                           <ul class="nav nav-tabs" style="float:right;" data-tabs="tabs">
-                              <li class="nav-item">
+                            <li class="nav-item">
                                   <a class="nav-link" href="#profile" data-toggle="tab">
                                     <i class="material-icons">create</i>` +
             numOfAnswers +
