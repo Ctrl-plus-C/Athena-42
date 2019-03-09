@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.dashboard, name='dashboard'),
+    url(r'^userprofile/', views.userprofile, name='userprofile'),
+    url(r'^postquestion/', views.postquestion, name='postquestion'),
     url(r'^api/question/$', views.QuestionsAPI.as_view(), name='QuestionsAPI'),    
     url(r'^api/answers/$', views.AnswerAPI.as_view(), name='AnswerAPI'),
     url(r'^api/answers/(?P<question_id>[-\w]+)/$', views.AnswerAPI.as_view(), name='AnswerAPI'),

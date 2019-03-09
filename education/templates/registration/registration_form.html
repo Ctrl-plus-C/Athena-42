@@ -20,12 +20,11 @@
       <form>
         <div class="row">
           <div class="col-md-6">
-              <form method="post">
-                  {% csrf_token %}
-                  {{form.errors}}
+            <form method="post">
+              {% csrf_token %}
+              {{form.errors}}
               <label class="bmd-label-floating">Username</label>
               {% render_field form.username class="form-control" %}
-            </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
@@ -69,20 +68,35 @@
           </div>
           <div class="col-md-4 text-center">
             <div class="form-check-inline">
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <!-- <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" value="" checked="">
+                  <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div> -->
+              {% render_field form.available_mentee class="form-check-input" value="True" id="defaultCheck1" %}
               <label class="form-check-label" for="defaultCheck1">
                 As Mentor
               </label>
-              {% render_field form.available_mentor class="form-control" %}
+
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-check-inline">
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <!-- <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" value="" checked="">
+                  <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div> -->
+              {% render_field form.available_mentee class="form-check-input" value="True" id="defaultCheck1" %}
               <label class="form-check-label" for="defaultCheck1">
                 As Mentee
               </label>
-              {% render_field form.available_mentee class="form-control" %}
             </div>
           </div>
         </div>

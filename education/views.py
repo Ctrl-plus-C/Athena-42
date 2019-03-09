@@ -11,7 +11,10 @@ def dashboard(request):
     return render(request, 'education/dashboard.html', {})
 
 def userprofile(request):
-    return HttpResponse("User Profile")
+    return render(request, 'education/userprofile.html',{})
+
+def postquestion(request):
+    return render(request, 'education/postquestion.html', {})
 
 
 class QuestionsAPI(APIView):
