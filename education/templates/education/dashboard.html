@@ -1,111 +1,107 @@
 {% extends 'education/base.html' %}
 {% load staticfiles %}
 {% block content %}
-  <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
-      <!--
+<div class="wrapper ">
+  <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+    <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
     -->
-      <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          {{request.user.username}}
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item active  ">
-            <a class="nav-link" href="{% url 'dashboard' %}">
-              <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="{% url 'userprofile' %}">
-              <i class="material-icons">person</i>
-              <p>User Profile</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="{% url 'postquestion' %}">
-              <i class="material-icons">content_paste</i>
-              <p>Post a Question</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="{% url 'answerquestion' %}">
-              <i class="material-icons">library_books</i>
-              <p>Answer a Question</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="{% url 'yourlistedquestions' %}">
-              <i class="material-icons">bubble_chart</i>
-              <p>Your Questions</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
-              <i class="material-icons">notifications</i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./rtl.html">
-              <i class="material-icons">language</i>
-              <p>RTL Support</p>
-            </a>
-          </li>
-        </ul>
-      </div>
+    <div class="logo">
+      <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        {{request.user.username}}
+      </a>
     </div>
-    <div class="main-panel">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Questions Feed</a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">person</i>
-                  <p class="d-lg-none d-md-block">
-                    Account
-                  </p>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <!-- End Navbar -->
-      <div class="content" style="padding-left:50px;padding-right:50px;">
-        <div class="container-fluid" id="feed_content">
-        </div>
-      </div>
-      <footer class="footer">
-        <div class="container-fluid">
-          <div class="copyright float-right">
-            &copy;
-            <script>
-              document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-          </div>
-        </div>
-      </footer>
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+        <li class="nav-item active  ">
+          <a class="nav-link" href="{% url 'dashboard' %}">
+            <i class="material-icons">dashboard</i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'userprofile' %}">
+            <i class="material-icons">person</i>
+            <p>User Profile</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'postquestion' %}">
+            <i class="material-icons">content_paste</i>
+            <p>Post a Question</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'yourlistedquestions' %}">
+            <i class="material-icons">bubble_chart</i>
+            <p>Your Questions</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="./notifications.html">
+            <i class="material-icons">notifications</i>
+            <p>Notifications</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'auth_logout' %}">
+            <i class="material-icons">bubble_chart</i>
+            <p>Logout</p>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
-  {% endblock %}
+  <div class="main-panel">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <div class="container-fluid">
+        <div class="navbar-wrapper">
+          <a class="navbar-brand" href="#pablo">Questions Feed</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+          <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <i class="material-icons">person</i>
+                <p class="d-lg-none d-md-block">
+                  Account
+                </p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="content" style="padding-left:50px;padding-right:50px;">
+      <div class="container-fluid" id="feed_content">
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="copyright float-right">
+          &copy;
+          <script>
+            document.write(new Date().getFullYear())
+          </script>, made with <i class="material-icons">favorite</i> by
+          <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+{% endblock %}
 {% block scripts %}
 <script src="../assets/js/core/jquery.min.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
@@ -114,7 +110,7 @@
 <script src="../assets/js/plugins/jquery.bootstrap-wizard.js"></script>
 <script src="../assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
 <script>
-  $(document).ready(function(){
+  $(document).ready(function () {
     var htmlStr = '';
     var questions_data;
     var tag_data;
@@ -123,56 +119,64 @@
       url: "http://127.0.0.1:8000/api/question/",
       async: false,
       success: function (data) {
-        data.map(function(ques_data){
+        data.map(function (ques_data) {
           var tagStr = "";
           var numOfAnswers = 0;
           $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:8000/api/tags/"+ques_data.pk,
+            url: "http://127.0.0.1:8000/api/tags/" + ques_data.pk,
             async: false,
-            success: function(tag_data){
+            success: function (tag_data) {
               tag_data = tag_data;
-              tag_data.map(function(eachtag){
-                tagStr += `<span class="badge badge-secondary">`+ eachtag.tag +`</span> &nbsp`
+              tag_data.map(function (eachtag) {
+                tagStr += `<span class="badge badge-secondary">` + eachtag.tag +
+                  `</span> &nbsp`
               });
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                console.log(XMLHttpRequest, textStatus, errorThrown);
+              console.log(XMLHttpRequest, textStatus, errorThrown);
             }
 
           });
           $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:8000/api/answers/"+ques_data.pk,
+            url: "http://127.0.0.1:8000/api/answers/" + ques_data.pk,
             async: false,
-            success: function(ans_data){
+            success: function (ans_data) {
               numOfAnswers = ans_data.length;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                console.log(XMLHttpRequest, textStatus, errorThrown);
+              console.log(XMLHttpRequest, textStatus, errorThrown);
             }
 
           });
           let upvotes = parseInt(ques_data.question_upvotes);
           let downvotes = parseInt(ques_data.question_downvotes);
           let reputation = upvotes - downvotes;
-          htmlStr += `<div class="row">
+          htmlStr +=
+            `<div class="row">
                 <div class="col-lg-12 col-md-12">
                   <div class="card">
                     <div class="card-header card-header-tabs card-header-primary">
                       <div class="nav-tabs-navigation">
                         <div class="nav-tabs-wrapper">
-                          <h4 class="nav-tabs-title">`+ ques_data.question_title + `</h4>
+                          <h4 class="nav-tabs-title">` +
+            ques_data.question_title +
+            `</h4>
                           <ul class="nav nav-tabs" style="float:right;" data-tabs="tabs">
                               <li class="nav-item">
                                   <a class="nav-link" href="#profile" data-toggle="tab">
-                                    <i class="material-icons">create</i>`+ numOfAnswers +`
+                                    <i class="material-icons">create</i>` +
+            numOfAnswers +
+            `
                                     <div class="ripple-container"></div>
                                   </a>
                                 </li>
                             <li class="nav-item">
                               <a class="nav-link" href="#profile" data-toggle="tab">
-                                <i class="material-icons">4k</i>` + reputation + `
+                                <i class="material-icons">4k</i>` +
+            reputation +
+            `
                                 <div class="ripple-container"></div>
                               </a>
                             </li>
@@ -184,11 +188,14 @@
                       <div class="tab-content">
                         <div class="tab-pane active" id="profile">
                           <blockquote class="blockquote">
-                            <p>` + ques_data.question_description + `</p>
+                            <p>` +
+            ques_data.question_description +
+            `</p>
                           </blockquote>
                         </div>
                         <hr >` +
-                        tagStr + `
+            tagStr +
+            `
                         <span style="float:right;"><button type="submit" class="btn btn-primary btn-sm pull-right">Bid for answer<div class="ripple-container"></div></button></span>                        
                       </div>
                     </div>
@@ -196,7 +203,7 @@
                 </div>
               </div>`
         });
-        
+
         // show data
         $('#feed_content').after(htmlStr);
         console.log(data);
@@ -206,6 +213,5 @@
       }
     });
   })
-  </script>
+</script>
 {% endblock %}
-  
