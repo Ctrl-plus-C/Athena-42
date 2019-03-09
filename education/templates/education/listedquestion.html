@@ -106,24 +106,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header card-header-primary">
-                                <h4 class="card-title">Question</h4>
-                                <p class="card-category">Complete your profile</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">blah blah</label>
-                                            <input type="text" class="form-control" disabled>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="user_quesdata"></div>
                     <div class="col-md-4">
                         <div class="card card-profile">
                             <div class="card-avatar">
@@ -183,4 +166,100 @@
 </div>
 {% endblock %}
 {% block scripts %}
+<script>
+        $(document).ready(function(){
+          var htmlStr = '';
+          var questions_data;
+          var tag_data;
+          $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:8000/api/question/",
+            async: false,
+            success: function (data) {
+                console.log(data);
+              data.map(function(ques_data){
+                  if(ques_data.user === {{request.user.pk}}){
+                var tagStr = "";
+                var numOfAnswers = 0;
+                $.ajax({
+                  type: "GET",
+                  url: "http://127.0.0.1:8000/api/tags/"+ques_data.pk,
+                  async: false,
+                  success: function(tag_data){
+                    tag_data = tag_data;
+                    tag_data.map(function(eachtag){
+                      tagStr += `<span class="badge badge-secondary">`+ eachtag.tag +`</span> &nbsp`
+                    });
+                  },
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                      console.log(XMLHttpRequest, textStatus, errorThrown);
+                  }
+      
+                });
+                $.ajax({
+                  type: "GET",
+                  url: "http://127.0.0.1:8000/api/answers/"+ques_data.pk,
+                  async: false,
+                  success: function(ans_data){
+                    numOfAnswers = ans_data.length;
+                  },
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                      console.log(XMLHttpRequest, textStatus, errorThrown);
+                  }
+      
+                });
+                let upvotes = parseInt(ques_data.question_upvotes);
+                let downvotes = parseInt(ques_data.question_downvotes);
+                let reputation = upvotes - downvotes;
+                htmlStr += `
+                      <div class="col-md-8">
+                        <div class="card">
+                          <div class="card-header card-header-tabs card-header-primary">
+                            <div class="nav-tabs-navigation">
+                              <div class="nav-tabs-wrapper">
+                                <h4 class="nav-tabs-title">`+ ques_data.question_title + `</h4>
+                                <ul class="nav nav-tabs" style="float:right;" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#profile" data-toggle="tab">
+                                          <i class="material-icons">create</i>`+ numOfAnswers +`
+                                          <div class="ripple-container"></div>
+                                        </a>
+                                      </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="#profile" data-toggle="tab">
+                                      <i class="material-icons">4k</i>` + reputation + `
+                                      <div class="ripple-container"></div>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <div class="tab-content">
+                              <div class="tab-pane active" id="profile">
+                                <blockquote class="blockquote">
+                                  <p>` + ques_data.question_description + `</p>
+                                </blockquote>
+                              </div>
+                              <hr >` +
+                              tagStr + `
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                
+                `
+              }});
+              
+              // show data
+              $('#user_quesdata').after(htmlStr);
+              console.log(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+              console.log(XMLHttpRequest, textStatus, errorThrown);
+            }
+          });
+        })
+        </script>
 {% endblock %}
