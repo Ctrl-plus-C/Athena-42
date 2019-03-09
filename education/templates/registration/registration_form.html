@@ -17,14 +17,13 @@
       <p class="card-category">All details are necesarry</p>
     </div>
     <div class="card-body">
-      <form>
+      <form method="post">
+        {% csrf_token %}
+        {{form.errors}}
         <div class="row">
           <div class="col-md-6">
-            <form method="post">
-              {% csrf_token %}
-              {{form.errors}}
-              <label class="bmd-label-floating">Username</label>
-              {% render_field form.username class="form-control" %}
+            <label class="bmd-label-floating">Username</label>
+            {% render_field form.username class="form-control" %}
           </div>
           <div class="col-md-6">
             <div class="form-group">
