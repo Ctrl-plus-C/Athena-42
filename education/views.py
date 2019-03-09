@@ -15,6 +15,10 @@ def dashboard(request):
 
 def userprofile(request):
     if request.user.is_authenticated():
+        bio = request.user.bio
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        name = first_name+" "+last_name
         if request.method == 'POST':
             user_form = CustomUserForm(request.POST)
             if user_form.is_valid():
@@ -25,11 +29,14 @@ def userprofile(request):
         else:
             instance = User.objects.get(username=request.user.username)
             user_form = CustomUserForm(instance=instance)
-        return render(request, 'education/userprofile.html',{'form':user_form})
+        return render(request, 'education/userprofile.html',{'form':user_form, 'name':name, 'bio':bio})
     return redirect('/')            
 
 def postquestion(request):
-    return render(request, 'education/postquestion.html', {})
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+    name = first_name+" "+last_name
+    return render(request, 'education/postquestion.html', {'name':name})
 
 def answerquestion(request):
     return render(request, 'education/answerquestion.html',{})
