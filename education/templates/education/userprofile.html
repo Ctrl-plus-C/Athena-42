@@ -31,6 +31,12 @@
                     </a>
                 </li>
                 <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'answerquestion' %}">
+                      <i class="material-icons">content_paste</i>
+                      <p>Answer a Question</p>
+                    </a>
+                  </li>
+                <li class="nav-item ">
                     <a class="nav-link" href="#">
                         <i class="material-icons">library_books</i>
                         <p>Typography</p>
@@ -175,14 +181,9 @@
                             <div class="card-body">
                                 <h6 class="card-category text-gray">{{ bio }}</h6>
                                 <h4 class="card-title">{{ name }}</h4>
-                                <span class="badge badge-secondary">Primary</span>
-                                <span class="badge badge-secondary">Secondary</span>
-                                <span class="badge badge-secondary">Success</span>
-                                <span class="badge badge-secondary">Danger</span>
-                                <span class="badge badge-secondary">Warning</span>
-                                <span class="badge badge-secondary">Info</span>
-                                <span class="badge badge-secondary">Light</span>
-                                <span class="badge badge-secondary">Dark</span>
+                                {% for i in skills %}
+                                    <span class="badge badge-secondary">{{ i.name }}</span>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
