@@ -216,7 +216,7 @@
                         </div>
                         <hr >` +
                         tagStr + `
-                       <span style="float:right;"><button type="submit" class="btn btn-primary btn-sm pull-right">Bid for answer<div class="ripple-container"></div></button></span>                        
+                       <span style="float:right;"><button type="submit" id="`+ques_data.pk+`" class="bid btn btn-primary btn-sm pull-right">Bid for answer<div class="ripple-container"></div></button></span>                        
                        <span style="float:right;"><button type="submit" id="`+ques_data.pk+`" class="viewanswer btn btn-primary btn-sm pull-right">View Answers<div class="ripple-container"></div></button></span>
                        <span style="float:right;"><button type="submit" id="`+ques_data.pk+`" data-toggle="modal" data-target="#submitanswermodal" class="submitanswer btn btn-primary btn-sm pull-right">Submit Answer<div class="ripple-container"></div></button></span>
                       </div>
@@ -278,21 +278,45 @@
       });
     });
 
-    $('.viewanswer').on('click', function(e){
+    $('.bid').on('click', function(e){
       ques_id = e.target.id;
+      user_id = {{request.user.pk}};
+      data = {};
+      data['user'] = user_id;
+      data['question'] = ques_id;
+      $.ajaxSetup({
+        headers: {
+          "X-CSRFToken": '{{csrf_token}}'
+        }
+      });
       $.ajax({
-            type: "GET",
-            url: "http://127.0.0.1:8000/api/answers/" + ques_id,
-            async: false,
-            success: function (ans_data) {
-              console.log(ans_data);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-              console.log(XMLHttpRequest, textStatus, errorThrown);
-            }
-
-          });
+        type: "POST",
+        url: "http://127.0.0.1:8000/api/bider/",
+        async: false,
+        data: data,
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          console.log(XMLHttpRequest, textStatus, errorThrown);
+        }
+      });
     });
+    // $('.viewanswer').on('click', function(e){
+    //   ques_id = e.target.id;
+    //   $.ajax({
+    //         type: "GET",
+    //         url: "http://127.0.0.1:8000/api/answers/" + ques_id,
+    //         async: false,
+    //         success: function (ans_data) {
+    //           console.log(ans_data);
+    //         },
+    //         error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //           console.log(XMLHttpRequest, textStatus, errorThrown);
+    //         }
+
+    //       });
+    // });
 
   });
   </script>

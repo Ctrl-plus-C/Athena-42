@@ -15,4 +15,7 @@ urlpatterns = [
     url(r'^api/skills/(?P<user>[-\w]+)/$', views.SkillAPI.as_view(), name='SkillAPI'),
     url(r'^api/tags/$', views.TagsAPI.as_view(), name='TagsAPI'),
     url(r'^api/tags/(?P<question>[-\w]+)/$', views.TagsAPI.as_view(), name='TagsAPI'),
+    url(r'^api/bider/$',views.BiderAPI.as_view(),name='BiderAPI'),
+    url(r'^api/bider/(?P<question_id>[-\w]+)/$',views.BiderAPI.as_view(),name='BiderAPI'),
+    url(r'^api/userdetails/$',views.get_userdata,name='get_userdata'),
 ]

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Question, Skill, Tag, Answer
+from .models import User, Question, Skill, Tag, Answer, Bider
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,4 +21,8 @@ class SkillSerializer(serializers.ModelSerializer):
         model = Skill
         fields = ('user', 'name')
 
+class BiderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bider
+        fields = ('user', 'question')
 

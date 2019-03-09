@@ -31,13 +31,24 @@ class Question(models.Model):
     question_description = models.CharField(max_length=2000, blank=True, null=True)
     question_upvotes = models.IntegerField(default=0)
     question_downvotes = models.IntegerField(default=0)
-    bider = models.ForeignKey(User, related_name='bider_for_a_question', blank=True, null=True)
+    alloted_bider = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name='allotted_bidder')
 
     def __str__(self):
         return str(self.question_title)
 
     def __unicode__(self):
         return str(self.question_title)
+
+class Bider(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.user.username)
+
+    def __unicode__(self):
+        return str(self.user.username)
+
 
 class Tag(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE,blank=True,null=True)

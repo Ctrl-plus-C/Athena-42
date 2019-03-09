@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import Skill, User, Question, Answer, Tag, Skill
+from django.http import HttpResponse, JsonResponse
+from .models import Skill, User, Question, Answer, Tag, Skill, Bider
 from rest_framework.views import APIView
-from .serializers import QuestionSerializer, AnswerSerializer, SkillSerializer, TagSerializer
+from .serializers import QuestionSerializer, AnswerSerializer, SkillSerializer, TagSerializer, BiderSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from .forms import CustomUserForm
@@ -177,3 +177,38 @@ class AnswerAPI(APIView):
             answer_serializer.save()
             return Response(answer_serializer.data, status=status.HTTP_200_OK)
         return Response(answer_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class BiderAPI(APIView):
+    def get(self, request, question_id, format=None):
+        try:
+            bider = Bider.objects.filter(question=question_id)
+            bider_serializer = BiderSerializer(bider, many=True)
+            bider_data = bider_serializer.data
+            return Response(bider_data, status=status.HTTP_200_OK)
+        except:
+            return Response({'success': False, 'message': 'No bider found.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request, format=None):
+        bider_serializer = BiderSerializer(data=request.data)
+        if bider_serializer.is_valid():
+            bider_serializer.save()
+            return Response(bider_serializer.data, status=status.HTTP_200_OK)
+        return Response(bider_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # def put(self, request, question_id, format=None):
+    #     try:
+    #         # here question_id will contain user id, its a misleading name used to prevent creation of another url.
+    #         answer = Answer.objects.get(question=request.data.get(
+    #             'answer_question'), user=question_id)
+    #     except:
+    #         return Response({'success': False,'message':'No Answer for user found.'}, status=status.HTTP_400_BAD_REQUEST)
+    #     answer_serializer = AnswerSerializer(answer, data=request.data, partial=True)
+    #     if answer_serializer.is_valid():
+    #         answer_serializer.save()
+    #         return Response(answer_serializer.data, status=status.HTTP_200_OK)
+    #     return Response(answer_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def get_userdata(request):
+    user_id = request.POST.get('user')
+    user = User.objects.get(pk=user_id)
+    return JsonResponse({'name': user.first_name + " " + user.last_name,'reputation': user.reputation})

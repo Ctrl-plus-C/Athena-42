@@ -160,6 +160,7 @@
           var htmlStr = '';
           var questions_data;
           var tag_data;
+          var biders = '';
           $.ajax({
             type: "GET",
             url: "http://127.0.0.1:8000/api/question/",
@@ -196,6 +197,36 @@
                       console.log(XMLHttpRequest, textStatus, errorThrown);
                   }
       
+                });
+                $.ajax({
+                    type: "GET",
+                  url: "http://127.0.0.1:8000/api/bider/"+ques_data.pk,
+                  async: false,
+                  success: function(bid_data){
+                      bid_data.map(function(bider_data){
+                        $.ajaxSetup({
+                            headers: {
+                                "X-CSRFToken": '{{csrf_token}}'
+                             }
+                         });
+                          $.ajax({
+                            type: "POST",
+                            url: "http://127.0.0.1:8000/api/userdetails/",
+                            async: false,
+                            data: {'user':bider_data.user},
+                            success: function(userdata){
+                                biders += ` <h4 class="card-title">Bider: `+ userdata.name +`</h4>
+                                <h6 class="card-category text-gray">Reputation: `+userdata.reputation+`</h6>`
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                console.log(XMLHttpRequest, textStatus, errorThrown);
+                            }
+                          });
+                      });
+                  },
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                      console.log(XMLHttpRequest, textStatus, errorThrown);
+                  }
                 });
                 let upvotes = parseInt(ques_data.question_upvotes);
                 let downvotes = parseInt(ques_data.question_downvotes);
@@ -244,10 +275,7 @@
                                 </a>
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title">User Name 1</h4>
-                                <h6 class="card-category text-gray">User Bio</h6>
-                                <h4 class="card-title">User Name 2</h4>
-                                <h6 class="card-category text-gray">User Bio</h6>
+                               `+biders+`
                             </div>
                         </div>
                 `
