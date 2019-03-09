@@ -40,7 +40,7 @@
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./notifications.html">
+          <a class="nav-link" href="{% url 'notif' %}">
             <i class="material-icons">notifications</i>
             <p>Notifications</p>
           </a>
@@ -184,7 +184,7 @@
             ques_data.question_title +
             `</h4>
                           <ul class="nav nav-tabs" style="float:right;" data-tabs="tabs">
-                              <li class="nav-item">
+                            <li class="nav-item">
                                   <a class="nav-link" href="#profile" data-toggle="tab">
                                     <i class="material-icons">create</i>` +
             numOfAnswers +
@@ -215,7 +215,7 @@
                         </div>
                         <hr >` +
                         tagStr + `
-                       <span style="float:right;"><button type="submit" class="btn btn-primary btn-sm pull-right">Bid for answer<div class="ripple-container"></div></button></span>                        
+                       <span style="float:right;"><button type="submit" id="bid" class="btn btn-primary btn-sm pull-right">Bid for answer<div class="ripple-container"></div></button></span>                        
                        <span style="float:right;"><button type="submit" id="view_answer" class="btn btn-primary btn-sm pull-right">View Answers<div class="ripple-container"></div></button></span>
                        <span style="float:right;"><button type="submit" id="`+ques_data.pk+`" data-toggle="modal" data-target="#submitanswermodal" class="submitanswer btn btn-primary btn-sm pull-right">Submit Answer<div class="ripple-container"></div></button></span>
                       </div>
@@ -272,6 +272,9 @@
         }
       });
     });
+    $('#bid').ready(function(e)){
+      
+    }
   });
   </script>
 {% endblock %}

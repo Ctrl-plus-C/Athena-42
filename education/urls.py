@@ -5,6 +5,7 @@ urlpatterns = [
     url(r'^$', views.dashboard, name='dashboard'),
     url(r'^userprofile/', views.userprofile, name='userprofile'),
     url(r'^postquestion/', views.postquestion, name='postquestion'),
+    url(r'^notif/', views.notif, name='notif'),
     url(r'^answerquestion/', views.answerquestion, name='answerquestion'),
     url(r'^listedquestion', views.listedquestion, name='yourlistedquestions'),
     url(r'^api/question/$', views.QuestionsAPI.as_view(), name='QuestionsAPI'),    
