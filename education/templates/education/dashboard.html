@@ -144,6 +144,7 @@
       url: "http://127.0.0.1:8000/api/question/",
       async: false,
       success: function (data) {
+        console.log(data);
         something = data;
         data.map(function (ques_data) {
           var tagStr = "";
@@ -246,7 +247,12 @@
     var ques_id; 
     $('.submitanswer').on('click', function(e){
       ques_id = e.target.id;
-      let ques_data = something[ques_id-1];
+      let ques_data;
+      something.map(function(somedata){
+        if (ques_id == somedata.pk){
+          ques_data = somedata;
+        }
+      });
       let ques_description = ques_data.question_description;
       let ques_title = ques_data.question_title;
       console.log(ques_description, ques_title);
@@ -311,21 +317,89 @@
         }
       });
     });
-    // $('.viewanswer').on('click', function(e){
-    //   ques_id = e.target.id;
-    //   $.ajax({
-    //         type: "GET",
-    //         url: "http://127.0.0.1:8000/api/answers/" + ques_id,
-    //         async: false,
-    //         success: function (ans_data) {
-    //           console.log(ans_data);
-    //         },
-    //         error: function (XMLHttpRequest, textStatus, errorThrown) {
-    //           console.log(XMLHttpRequest, textStatus, errorThrown);
-    //         }
+    $('.viewanswer').on('click', function(e){
+      ques_id = e.target.id;
+      let username_data = '';
+      ansStr = '';
+      $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:8000/api/answers/" + ques_id,
+            async: false,
+            success: function (ans_data) {
+              ans_data.map(function(ansdata){
+                console.log(ansdata);
+                $.ajaxSetup({
+                            headers: {
+                                "X-CSRFToken": '{{csrf_token}}'
+                             }
+                         });
+                $.ajax({
+                  type: "POST",
+                  url: "http://127.0.0.1:8000/api/userdetails/",
+                  async: false,
+                  data: {'user':ansdata.user},
+                  success: function(userdata){
+                      username_data = userdata.name;
+                  },
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                      console.log(XMLHttpRequest, textStatus, errorThrown);
+                  }
+                });
+                ansStr +=`<h2>Answer</h2><div class="row" data-quesid=`+ ansdata.pk +`>
+                <div class="col-lg-12 col-md-12">
+                  <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary">
+                      <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                          <h4 class="nav-tabs-title">By user: ` +
+            username_data +
+            `</h4>
+                          <ul class="nav nav-tabs" style="float:right;" data-tabs="tabs">
+                            <li class="nav-item">
+                                  <a class="nav-link" href="#profile" data-toggle="tab">
+                                    <i class="material-icons">create</i>` +
+            ansdata.answer_upvotes +
+            `
+                                    <div class="ripple-container"></div>
+                                  </a>
+                                </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#profile" data-toggle="tab">
+                                <i class="material-icons">4k</i>` +
+            ansdata.answer_downvotes +
+            `
+                                <div class="ripple-container"></div>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body animatedesc">
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="profile">
+                          <blockquote class="blockquote" data-quesdesc=`+ansdata.question_description+`>
+                            <p>` +
+            ansdata.answer_text +
+            `</p>
+                          </blockquote>
+                        </div>
+                        <hr >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>`
+              });
+              $('#feed_content').append(ansStr);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+              console.log(XMLHttpRequest, textStatus, errorThrown);
+            }
 
-    //       });
-    // });
+          });
+    });
 
   });
   </script>
