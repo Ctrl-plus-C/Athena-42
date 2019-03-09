@@ -86,25 +86,33 @@
                                 <p class="card-category">Complete your profile</p>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{form.errors}}
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="bmd-label-floating">Username</label>
+                                                <label id="username" class="bmd-label-floating">Username</label>
                                                 {% render_field form.username class="form-control" %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Email address (Use disposable ones)</label>
+                                                {% render_field form.email class="form-control" %}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="bmd-label-floating">First Name</label>
+                                                <label id="first_name" class="bmd-label-floating">First Name</label>
                                                 {% render_field form.first_name class="form-control" %}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="bmd-label-floating">Last Name</label>
+                                                <label id="last_name" class="bmd-label-floating">Last Name</label>
                                                 {% render_field form.last_name class="form-control" %}
                                             </div>
                                         </div>
@@ -112,13 +120,13 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="bmd-label-floating">Password</label>
+                                                <label id="password1" class="bmd-label-floating">Password</label>
                                                 {% render_field form.password1 class="form-control" %}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="bmd-label-floating">Confirm Password</label>
+                                                <label id="password2" class="bmd-label-floating">Confirm Password</label>
                                                 {% render_field form.password2 class="form-control" %}
                                             </div>
                                         </div>
@@ -147,13 +155,14 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="form-group">
+                                            <div id="bio" class="form-group">
                                                 <label>About Me</label>
                                                 {% render_field form.bio class="form-control" %}
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary pull-right">Edit your profile</button>
+                                    <button id="editprofile" type="submit" class="btn btn-primary pull-right">Edit your
+                                        profile</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
@@ -177,11 +186,12 @@
                                 <h6 class="card-category text-gray">Enter Your Skill</h6>
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <input type="text" placeholder="Python, JS ..." id="user_skill" maxlength="30" class="form-control">
+                                        <input type="text" placeholder="Python, JS ..." id="user_skill" maxlength="30"
+                                            class="form-control">
                                     </div>
-                                <div class="col-md-4">
+                                    <div class="col-md-4">
                                         <button id="skilladd" class="btn btn-primary pull-right">Add</button>
-                                </div>
+                                    </div>
                                 </div>
                                 <div id="success_msg" style="display: none;">Skill added successfully</div>
                             </div>
@@ -230,51 +240,75 @@
 {% endblock %}
 {% block scripts %}
 <script>
-$(document).ready(function(){
-    $.ajax({
-        type: "GET",
-        url: "http://127.0.0.1:8000/api/skills/"+ {{request.user.pk}},
-        async: false,
-        success: function(data){
-            skillStr = '';
-            data.map(function(skilldata){
-                skillStr += `<span class="badge badge-secondary">`+ skilldata.name +`</span> &nbsp`;
-            });
-            $('#userskills').append(skillStr);
-            console.log(data);
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-              console.log(XMLHttpRequest, textStatus, errorThrown);
-        },
-    });
+    // $("#editprofile").click(function(e){
+    //     e.preventDefault();
+    //     console.log("lolol")
+    //     var username = $("#username").val();
+    //     var firstname = $("#first_name").val(); 
+    //     var secondname = $("#last_name").val(); 
+    //     var password = $("#password1").val();
+    //     var secondpassword = $("#password2").val();
+    //     var bio = $("#bio").val();
 
-    $('#skilladd').click(function(e){
-        e.preventDefault();
-        let skillVal = $('#user_skill').val();
-        data = {};
-        data['user'] = {{request.user.pk}};
-        data['name'] = skillVal;
-        $.ajaxSetup({
-        headers: {
-                "X-CSRFToken": '{{csrf_token}}'
-            }
-        });
+
+
+    // });
+
+    $(document).ready(function () {
         $.ajax({
-            type: "POST",
-            url: "http://127.0.0.1:8000/api/skills/",
-            data: data,
+            type: "GET",
+            url: "http://127.0.0.1:8000/api/skills/" + {
+                {
+                    request.user.pk
+                }
+            },
+            async: false,
             success: function (data) {
-              $('#userskills').append(`<span class="badge badge-secondary">` + data.name + `</span> &nbsp`)                
-              $('#success_msg').show();
-              $('#user_skill').val('');
-              setTimeout(function(){
-                $('#success_msg').hide();
-              },4000);
+                skillStr = '';
+                data.map(function (skilldata) {
+                    skillStr += `<span class="badge badge-secondary">` + skilldata.name +
+                        `</span> &nbsp`;
+                });
+                $('#userskills').append(skillStr);
+                console.log(data);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-              console.log(XMLHttpRequest, textStatus, errorThrown);
-            }
+                console.log(XMLHttpRequest, textStatus, errorThrown);
+            },
         });
+
+        $('#skilladd').click(function (e) {
+            e.preventDefault();
+            let skillVal = $('#user_skill').val();
+            data = {};
+            data['user'] = {
+                {
+                    request.user.pk
+                }
+            };
+            data['name'] = skillVal;
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRFToken": '{{csrf_token}}'
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8000/api/skills/",
+                data: data,
+                success: function (data) {
+                    $('#userskills').append(`<span class="badge badge-secondary">` + data.name +
+                        `</span> &nbsp`)
+                    $('#success_msg').show();
+                    $('#user_skill').val('');
+                    setTimeout(function () {
+                        $('#success_msg').hide();
+                    }, 4000);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest, textStatus, errorThrown);
+                }
+            });
         });
     });
 </script>
