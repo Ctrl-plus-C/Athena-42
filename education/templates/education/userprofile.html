@@ -1,6 +1,6 @@
 {% extends 'education/base.html' %}
 {% load staticfiles %}
-
+{% load widget_tweaks %}
 {% block content %}
 
 <div class="wrapper ">
@@ -25,9 +25,9 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="postquestion">
                         <i class="material-icons">content_paste</i>
-                        <p>Table List</p>
+                        <p>Post a Question</p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -97,21 +97,21 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Username</label>
-                                                <input type="text" class="form-control">
+                                                {% render_field form.username class="form-control" %}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="bmd-label-floating">Fist Name</label>
-                                                <input type="text" class="form-control">
+                                                <label class="bmd-label-floating">First Name</label>
+                                                {% render_field form.first_name class="form-control" %}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Last Name</label>
-                                                <input type="text" class="form-control">
+                                                {% render_field form.last_name class="form-control" %}
                                             </div>
                                         </div>
                                     </div>
@@ -119,13 +119,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Password</label>
-                                                <input type="text" class="form-control">
+                                                {% render_field form.password1 class="form-control" %}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Confirm Password</label>
-                                                <input type="text" class="form-control">
+                                                {% render_field form.password2 class="form-control" %}
                                             </div>
                                         </div>
                                     </div>
@@ -136,17 +136,16 @@
                                         </div>
                                         <div class="col-md-4 text-center">
                                             <div class="form-check-inline">
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    As Mentor
+                                                {% render_field form.available_mentor class="form-check-input" id="defaultCheck1" %}
+
+                                                As Mentor
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-check-inline">
-                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    As Mentee
+                                                {% render_field form.available_mentee class="form-check-input" id="defaultCheck1" %}
+                                                As Mentee
                                                 </label>
                                             </div>
                                         </div>
@@ -156,7 +155,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>About Me</label>
-                                                <input type="text" class="form-control">
+                                                {% render_field form.bio class="form-control" %}
                                             </div>
                                         </div>
                                     </div>

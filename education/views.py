@@ -1,20 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Skill, User, Question, Answer, Tag, Skill
 from rest_framework.views import APIView
 from .serializers import QuestionSerializer, AnswerSerializer, SkillSerializer, TagSerializer
 from rest_framework.response import Response
 from rest_framework import status
-
+from .forms import CustomUserForm
 
 def dashboard(request):
-    return render(request, 'education/dashboard.html', {})
+    if request.user.is_authenticated():
+        return render(request, 'education/dashboard.html', {})
+    return redirect('/accounts/login')
 
 def userprofile(request):
-    return render(request, 'education/userprofile.html',{})
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            user_form = CustomUserForm(request.POST)
+            if user_form.is_valid():
+                userform_data = user_form.save(commit=False)
+                userform_data.user = request.user
+                userform_data.save()
+                return redirect('/')
+        else:
+            instance = User.objects.get(username=request.user.username)
+            user_form = CustomUserForm(instance=instance)
+        return render(request, 'education/userprofile.html',{'form':user_form})
+    return redirect('/')            
 
 def postquestion(request):
     return render(request, 'education/postquestion.html', {})
+
+def answerquestion(request):
+    return render(request, 'education/answerquestion.html',{})
 
 
 class QuestionsAPI(APIView):

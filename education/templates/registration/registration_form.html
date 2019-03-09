@@ -51,13 +51,13 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="bmd-label-floating">Password</label>
-              {% render_field form.password class="form-control" %}
+              {% render_field form.password1 class="form-control" %}
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label class="bmd-label-floating">Confirm Password</label>
-              {% render_field form.password class="form-control" %}
+              {% render_field form.password2 class="form-control" %}
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@
                   </span>
                 </label>
               </div> -->
-              {% render_field form.available_mentee class="form-check-input" value="True" id="defaultCheck1" %}
+              {% render_field form.available_mentor class="form-check-input" id="defaultCheck1" %}
               <label class="form-check-label" for="defaultCheck1">
                 As Mentor
               </label>
@@ -93,7 +93,7 @@
                   </span>
                 </label>
               </div> -->
-              {% render_field form.available_mentee class="form-check-input" value="True" id="defaultCheck1" %}
+              {% render_field form.available_mentee class="form-check-input" id="defaultCheck1" %}
               <label class="form-check-label" for="defaultCheck1">
                 As Mentee
               </label>
