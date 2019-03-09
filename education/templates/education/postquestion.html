@@ -210,7 +210,7 @@
       var data = {}
       data['question_title'] = ques_title;
       data['question_description'] = ques_description;
-      data['user'] = {{request.user.pk}}
+      data['user'] = {{request.user.pk}};
       var ques_id = 0;
       $.ajaxSetup({
         headers: {
