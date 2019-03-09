@@ -48,6 +48,9 @@ def answerquestion(request):
     name = first_name+" "+last_name
     return render(request, 'education/answerquestion.html',{'name':name})
 
+def listedquestion(request):
+    questions = Question.objects.filter(user=request.user).values()
+    return render(request, 'education/listedquestion.html',{'question':questions})
 
 class QuestionsAPI(APIView):
     def get(self, request, format=None):

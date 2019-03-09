@@ -1,6 +1,6 @@
 {% extends 'education/base.html' %}
 {% load staticfiles %}
-{% load widget_tweaks %}
+
 {% block content %}
 
 <div class="wrapper ">
@@ -12,13 +12,13 @@
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="nav-item  ">
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'dashboard' %}">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item active ">
+                <li class="nav-item ">
                     <a class="nav-link" href="{% url 'userprofile' %}">
                         <i class="material-icons">person</i>
                         <p>User Profile</p>
@@ -32,11 +32,11 @@
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="{% url 'answerquestion' %}">
-                      <i class="material-icons">content_paste</i>
-                      <p>Answer a Question</p>
+                        <i class="material-icons">content_paste</i>
+                        <p>Answer a Question</p>
                     </a>
-                  </li>
-                <li class="nav-item ">
+                </li>
+                <li class="nav-item  active">
                     <a class="nav-link" href="{% url 'yourlistedquestions' %}">
                         <i class="material-icons">library_books</i>
                         <p>Your Questions</p>
@@ -67,6 +67,9 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
+                <div class="navbar-wrapper">
+                    <a class="navbar-brand" href="#pablo">Dashboard</a>
+                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
@@ -84,6 +87,18 @@
                             </button>
                         </div>
                     </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">person</i>
+                                <p class="d-lg-none d-md-block">
+                                    Account
+                                </p>
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -94,80 +109,18 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title">Edit Profile</h4>
+                                <h4 class="card-title">Question</h4>
                                 <p class="card-category">Complete your profile</p>
                             </div>
                             <div class="card-body">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Username</label>
-                                                {% render_field form.username class="form-control" %}
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">blah blah</label>
+                                            <input type="text" class="form-control" disabled>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">First Name</label>
-                                                {% render_field form.first_name class="form-control" %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Last Name</label>
-                                                {% render_field form.last_name class="form-control" %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Password</label>
-                                                {% render_field form.password1 class="form-control" %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="bmd-label-floating">Confirm Password</label>
-                                                {% render_field form.password2 class="form-control" %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label class="bmd-label-floating">Change your role</label>
-                                        </div>
-                                        <div class="col-md-4 text-center">
-                                            <div class="form-check-inline">
-                                                {% render_field form.available_mentor class="form-check-input" id="defaultCheck1" %}
-
-                                                As Mentor
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-check-inline">
-                                                {% render_field form.available_mentee class="form-check-input" id="defaultCheck1" %}
-                                                As Mentee
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>About Me</label>
-                                                {% render_field form.bio class="form-control" %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary pull-right">Edit your profile</button>
-                                    <div class="clearfix"></div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,20 +128,21 @@
                         <div class="card card-profile">
                             <div class="card-avatar">
                                 <a href="#pablo">
-                                    <img class="img" src="{% static 'images/a.jpg' %}" />
+                                    <img class="img" src="{% static 'images/images.png' %}" />
                                 </a>
                             </div>
                             <div class="card-body">
-                                <h6 class="card-category text-gray">{{ bio }}</h6>
-                                <h4 class="card-title">{{ name }}</h4>
-                                {% for i in skills %}
-                                    <span class="badge badge-secondary">{{ i.name }}</span>
-                                {% endfor %}
+                                <h4 class="card-title">User Name 1</h4>
+                                <h6 class="card-category text-gray">User Bio</h6>
+                                <h4 class="card-title">User Name 2</h4>
+                                <h6 class="card-category text-gray">User Bio</h6>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <a href="#pablo" class="btn btn-primary pull-right float-right">Follow</a>
+
         </div>
         <footer class="footer">
             <div class="container-fluid">
@@ -227,4 +181,6 @@
         </footer>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
 {% endblock %}

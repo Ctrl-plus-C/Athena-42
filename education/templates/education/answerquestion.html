@@ -12,34 +12,34 @@
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li class="nav-item active  ">
+        <li class="nav-item">
           <a class="nav-link" href="">
             <i class="material-icons">dashboard</i>
             <p>Dashboard</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="userprofile">
+          <a class="nav-link" href="{% url 'userprofile' %}">
             <i class="material-icons">person</i>
             <p>User Profile</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="postquestion">
+          <a class="nav-link" href="{% url 'postquestion' %}">
             <i class="material-icons">content_paste</i>
             <p>Post a Question</p>
           </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item active">
           <a class="nav-link" href="{% url 'answerquestion' %}">
             <i class="material-icons">content_paste</i>
             <p>Answer a Question</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./typography.html">
+          <a class="nav-link" href="{% url 'yourlistedquestions' %}">
             <i class="material-icons">library_books</i>
-            <p>Typography</p>
+            <p>Your Questions</p>
           </a>
         </li>
         <li class="nav-item ">
