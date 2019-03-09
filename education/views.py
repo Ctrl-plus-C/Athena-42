@@ -10,7 +10,10 @@ import json
 
 def dashboard(request):
     if request.user.is_authenticated():
-        return render(request, 'education/dashboard.html', {})
+        first_name = request.user.first_name
+        last_name = request.user.last_name
+        name = first_name+" "+last_name
+        return render(request, 'education/dashboard.html', {'name':name})
     return redirect('/accounts/login')
 
 def userprofile(request):
