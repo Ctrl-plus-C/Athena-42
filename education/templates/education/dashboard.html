@@ -117,10 +117,11 @@
                   <textarea id='answer_area' class="form-control" rows="5"></textarea>
                 </div>
               </div>
+              <span id="submitsuccess"></span>
           </div>
           <div class="modal-footer">
             <button type="button" id="answergiven" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="closemodall" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -216,7 +217,7 @@
                         <hr >` +
                         tagStr + `
                        <span style="float:right;"><button type="submit" class="btn btn-primary btn-sm pull-right">Bid for answer<div class="ripple-container"></div></button></span>                        
-                       <span style="float:right;"><button type="submit" id="view_answer" class="btn btn-primary btn-sm pull-right">View Answers<div class="ripple-container"></div></button></span>
+                       <span style="float:right;"><button type="submit" id="`+ques_data.pk+`" class="viewanswer btn btn-primary btn-sm pull-right">View Answers<div class="ripple-container"></div></button></span>
                        <span style="float:right;"><button type="submit" id="`+ques_data.pk+`" data-toggle="modal" data-target="#submitanswermodal" class="submitanswer btn btn-primary btn-sm pull-right">Submit Answer<div class="ripple-container"></div></button></span>
                       </div>
                     </div>
@@ -266,12 +267,33 @@
         data: data,
         success: function (data) {
           console.log(data);
+          $('#submitsuccess').append('Answer submitted successfully');
+          setTimeout(function(){
+            $('#closemodall').click();
+          },2000);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           console.log(XMLHttpRequest, textStatus, errorThrown);
         }
       });
     });
+
+    $('.viewanswer').on('click', function(e){
+      ques_id = e.target.id;
+      $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:8000/api/answers/" + ques_id,
+            async: false,
+            success: function (ans_data) {
+              console.log(ans_data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+              console.log(XMLHttpRequest, textStatus, errorThrown);
+            }
+
+          });
+    });
+
   });
   </script>
 {% endblock %}
