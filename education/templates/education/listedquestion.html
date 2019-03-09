@@ -96,7 +96,8 @@
                 <div class="row">
                     <div id="user_quesdata"></div>
                     <div class="col-md-4">
-                        <div class="card card-profile">
+                        <div id="bidders"></div>
+                        <!-- <div class="card card-profile">
                             <div class="card-avatar">
                                 <a href="#pablo">
                                     <img class="img" src="{% static 'images/images.jpg' %}" />
@@ -108,7 +109,7 @@
                                 <h4 class="card-title">User Name 2</h4>
                                 <h6 class="card-category text-gray">User Bio</h6>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -223,7 +224,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="card-body">
+                          <div class="col-md-8 card-body">
                             <div class="tab-content">
                               <div class="tab-pane active" id="profile">
                                 <blockquote class="blockquote">
@@ -236,7 +237,19 @@
                           </div>
                         </div>
                       </div>
-                
+                      <div class="col-md-4 card card-profile">
+                            <div class="card-avatar">
+                                <a href="#pablo">
+                                    <img class="img" src="{% static 'images/images.jpg' %}" />
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">User Name 1</h4>
+                                <h6 class="card-category text-gray">User Bio</h6>
+                                <h4 class="card-title">User Name 2</h4>
+                                <h6 class="card-category text-gray">User Bio</h6>
+                            </div>
+                        </div>
                 `
               }});
               
