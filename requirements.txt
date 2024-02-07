@@ -1,6 +1,6 @@
 autopep8==1.4.3
 confusable-homoglyphs==3.2.0
-Django==2.2.27
+Django==3.2.24
 django-registration==2.4.1
 django-rest-framework==0.1.0
 django-widget-tweaks==1.4.3
